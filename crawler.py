@@ -19,7 +19,6 @@ class Listener(StreamListener):
 
     def on_data(self, data):
 
-        print data
         try:
             decoded = json.loads(data)
         except Exception as e:
@@ -37,7 +36,6 @@ class Listener(StreamListener):
         timestamp = decoded.get('timestamp_ms')
         source = decoded.get('source')
         tweet = '%s|%s|%s|%s|%s|%s\n' % (user, location, created, text, timestamp, source)
-        print tweet
         file.write(tweet)
 
         return True
@@ -57,9 +55,10 @@ def start_stream():
             continue
 
 if __name__ == '__main__':
-    print 'Empezando...'
+    print 'Empezando a escuchar...'
     file = codecs.open(str(sys.argv[1]), 'a', 'utf-8')    
     tweet = '%s|%s|%s|%s|%s|%s\n' % ('user', 'location', 'created', 'text', 'timestamp', 'source')
+    file.write(tweet)
     auth = OAuthHandler(os.environ['CKEY'], os.environ['CSECRET'])
     auth.set_access_token(os.environ['ATOKEN'], os.environ['ASECRET'])
 
