@@ -58,8 +58,7 @@ def start_stream():
 
 if __name__ == '__main__':
     print 'Empezando...'
-    #file = codecs.open(str(sys.argv[1]), 'a', 'utf-8')
-    file = codecs.open('tweets.txt', 'a', 'utf-8')
+    file = codecs.open(str(sys.argv[1]), 'a', 'utf-8')    
     tweet = '%s|%s|%s|%s|%s|%s\n' % ('user', 'location', 'created', 'text', 'timestamp', 'source')
     auth = OAuthHandler(os.environ['CKEY'], os.environ['CSECRET'])
     auth.set_access_token(os.environ['ATOKEN'], os.environ['ASECRET'])
