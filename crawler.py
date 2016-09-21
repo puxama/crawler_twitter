@@ -30,12 +30,27 @@ class Listener(StreamListener):
         else:
             location = '[,]'
 
+        if decoded.get('user').get('location') is not None:
+            location_us = decoded.get('user').get('location')
+        else:
+            location_us = ''
+
         text = decoded['text'].replace('\n',' ')
         user = '@' + decoded.get('user').get('screen_name')
         created = decoded.get('created_at')
         timestamp = decoded.get('timestamp_ms')
         source = decoded.get('source')
-        tweet = '%s|%s|%s|%s|%s|%s\n' % (user, location, created, text, timestamp, source)
+        reply_status = decoded.get('in_reply_to_status_id')
+        reply_user = decoded.get('in_reply_to_user_id')
+        followers_count = decoded.get('user').get('followers_count')
+        friends_count = decoded.get('user').get('friends_count')
+        name_user = decoded.get('user').get('name')
+        description_user = decoded.get('user').get('description')
+
+        tweet = '%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % \
+                (user, location, created, text, timestamp, source, location_us, reply_status, reply_user,
+                 followers_count, friends_count, name_user, description_user)
+        print tweet
         file.write(tweet)
 
         return True
